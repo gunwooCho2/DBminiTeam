@@ -59,7 +59,7 @@ public class DAO {
             pstmt.setInt(4, empno);
 
             pstmt.executeUpdate();
-            System.out.println("데이터가 성공적으로 저장되었습니다. 등록 시간: " + currentTime);
+            System.out.println("데이터가 성공적으로 저장되었습니다.");
 
         } catch (Exception e) {
             e.printStackTrace();

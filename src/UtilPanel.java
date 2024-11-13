@@ -10,30 +10,29 @@ public class UtilPanel extends CustomPanel {
     ButtonLabel logIn = new ButtonLabel("LogIn", this);
     ButtonLabel insert = new ButtonLabel("Insert", this);
     ButtonLabel delete = new ButtonLabel("Delete", this);
-    ButtonLabel createTable = new ButtonLabel("Create Table", this);
+    ButtonLabel rename = new ButtonLabel("Rename", this);
+    ButtonLabel signUp = new ButtonLabel("SignUp", this);
+    String userName;
     int empno;
 
     public UtilPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
 
-        // 레이아웃 설정
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setName("UtilPanel");
-        setPreferredSize(new Dimension(800, 50)); // 전체 크기 설정
+        setPreferredSize(new Dimension(800, 50));
         setBackground(Color.BLUE);
 
-        // 크기 설정
         logIn.setPreferredSize(new Dimension(150, 50));
         username.setPreferredSize(new Dimension(200, 50));
 
-        // 간격 추가
         add(Box.createVerticalStrut(10));
-        add(Box.createHorizontalStrut(650)); // 왼쪽 여백
+        add(Box.createHorizontalStrut(550));
         add(username);
-        add(Box.createHorizontalStrut(10)); // 컴포넌트 간 간격
+        add(Box.createHorizontalStrut(10));
         add(logIn);
+        add(signUp);
         add(Box.createVerticalStrut(10));
-//        add(createTable);
 
         setVisible(true);
     }
@@ -50,12 +49,14 @@ public class UtilPanel extends CustomPanel {
                         boardNoMap.put(integer.toString(), SQL.viewBoardContent(integer));
                     }
                     mainFrame.titlesPanel.setTitlesMap(boardNoMap);
-                    remove(username);
-                    remove(createTable);
+                    userName = username.getText();
+                    username.setText("");
                     logIn.setName("LogOut");
                     logIn.setText("LogOut");
                     add(insert);
                     add(delete);
+                    add(rename);
+                    remove(signUp);
                 }
                 else System.out.println("Error Can't find userName");
                 break;
@@ -65,13 +66,13 @@ public class UtilPanel extends CustomPanel {
                 remove(logIn);
                 remove(insert);
                 remove(delete);
-                username.setText("");
-                add(username);
+                remove(rename);
                 add(logIn);
+                add(signUp);
                 mainFrame.titlesPanel.setTitlesMap(SQL.homeworkOne);
                 break;
             case "Delete":
-                mainFrame.dao.deleteByEmpName(username.getText());
+                mainFrame.dao.deleteByEmpName(userName);
                 break;
             case "Insert":
                 if (ViewPanel.isInputPanel) {
@@ -93,12 +94,12 @@ public class UtilPanel extends CustomPanel {
                 }
                 else mainFrame.viewPanel.inputBoard();
                 break;
-            case "Create Table":
-                for (String sql:SQL.homeworkTwo) {
-                    mainFrame.dao.executeUpdateSql(sql);
-                }
-                remove(createTable);
-                break;
+            case "Rename":
+                System.out.println(userName);
+                String sql = "UPDATE EMP SET ENAME = '" + username.getText() + "' WHERE EMPNO = " + empno;
+                mainFrame.dao.executeUpdateSql(sql);
+                System.out.println("Renamed");
+            case "SignUp":
         }
     }
 }

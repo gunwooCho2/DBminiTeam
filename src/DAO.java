@@ -48,18 +48,15 @@ public class DAO {
 
     // 게시물 추가 메서드
     public void insertBorder(String title, String content, String writer, int empno) {
-        sql = "INSERT INTO BOARD (title, content, writer, empno, regdate) VALUES (?, ?, ?, ?, ?)";
+        sql = "INSERT INTO BOARD (title, content, writer, empno) VALUES (?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(url, userid, passwd);
              PreparedStatement pstmt = con.prepareStatement(sql)) {
-
-            Timestamp currentTime = new Timestamp(new Date().getTime());
 
             pstmt.setString(1, title);
             pstmt.setString(2, content);
             pstmt.setString(3, writer);
             pstmt.setInt(4, empno);
-            pstmt.setTimestamp(5, currentTime);
 
             pstmt.executeUpdate();
             System.out.println("데이터가 성공적으로 저장되었습니다. 등록 시간: " + currentTime);

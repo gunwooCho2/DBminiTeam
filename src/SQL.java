@@ -24,7 +24,7 @@ public class SQL {
         homeworkOne.put("급여 랭킹", "SELECT ENAME, SAL FROM EMP ORDER BY SAL DESC");
 
         homeworkTwo.add("""
-                CREATE TABLE TEAMCHCBOARD (
+                CREATE TABLE board (
                     boardNo NUMBER PRIMARY KEY,
                     title VARCHAR2(100) NOT NULL,
                     content VARCHAR2(1000) NOT NULL,
@@ -37,7 +37,7 @@ public class SQL {
                 )
                 """);
         homeworkTwo.add("""
-                CREATE SEQUENCE TEAMCHCBOARD_seq
+                CREATE SEQUENCE board_seq
                     START WITH 1
                     INCREMENT BY 1
                     NOCYCLE
@@ -46,12 +46,12 @@ public class SQL {
                     CACHE 20
                 """);
         homeworkTwo.add("""
-                CREATE OR REPLACE TRIGGER trg_TEAMCHCBOARD_no
-                BEFORE INSERT ON TEAMCHCBOARD
+                CREATE OR REPLACE TRIGGER trg_board_no
+                BEFORE INSERT ON board
                 FOR EACH ROW
                 BEGIN
                     IF :NEW.boardNo IS NULL THEN
-                        SELECT TEAMCHCBOARD_seq.NEXTVAL INTO :NEW.boardNo FROM dual;
+                        SELECT board_seq.NEXTVAL INTO :NEW.boardNo FROM dual;
                     END IF;
                 END
                 """);

@@ -2,7 +2,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class DAO {
@@ -88,7 +87,6 @@ public class DAO {
             try (PreparedStatement pstmt = con.prepareStatement(deleteEmployeeSql)) {
                 pstmt.setString(1, empname);
                 int rowsDeleted = pstmt.executeUpdate();
-                System.out.println(rowsDeleted + "명의 직원이 삭제되었습니다.");
             }
 
             System.out.println("데이터 삭제가 성공적으로 완료되었습니다.");

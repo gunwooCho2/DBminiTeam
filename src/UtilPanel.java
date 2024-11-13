@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UtilPanel extends CustomPanel {
-    private MainFrame mainFrame;
+    private final MainFrame mainFrame;
     JTextField username = new JTextField(20);
     ButtonLabel logIn = new ButtonLabel("LogIn", this);
     ButtonLabel insert = new ButtonLabel("Insert", this);
@@ -21,8 +21,6 @@ public class UtilPanel extends CustomPanel {
         setName("UtilPanel");
         setPreferredSize(new Dimension(800, 50)); // 전체 크기 설정
         setBackground(Color.BLUE);
-
-        username = new JTextField(20);
 
         // 크기 설정
         logIn.setPreferredSize(new Dimension(150, 50));
@@ -48,8 +46,8 @@ public class UtilPanel extends CustomPanel {
                 if (empno != 0) {
                     ArrayList<Integer> boardNo = mainFrame.dao.viewBoardTitle(username.getText());
                     Map<String, String>boardNoMap = new HashMap<>();
-                    for (int i = 0; i < boardNo.size(); i++) {
-                        boardNoMap.put(boardNo.get(i).toString(), SQL.viewBoardContent(boardNo.get(i)));
+                    for (Integer integer : boardNo) {
+                        boardNoMap.put(integer.toString(), SQL.viewBoardContent(integer));
                     }
                     mainFrame.titlesPanel.setTitlesMap(boardNoMap);
                     remove(username);
@@ -79,15 +77,15 @@ public class UtilPanel extends CustomPanel {
                 if (ViewPanel.isInputPanel) {
                     String boardTitle = ViewPanel.textField.getText();
                     String boardContect = ViewPanel.textArea.getText();
-                    if (!boardContect.equals("") && !boardTitle.equals("")) {
+                    if (!boardContect.isEmpty() && !boardTitle.isEmpty()) {
                         mainFrame.dao.insertBorder(boardTitle, boardContect, username.getText(), empno);
                         ViewPanel.textArea.setText("");
                         ViewPanel.textField.setText("");
                         ViewPanel.isInputPanel = false;
                         ArrayList<Integer> boardNo = mainFrame.dao.viewBoardTitle(username.getText());
                         Map<String, String>boardNoMap = new HashMap<>();
-                        for (int i = 0; i < boardNo.size(); i++) {
-                            boardNoMap.put(boardNo.get(i).toString(), SQL.viewBoardContent(boardNo.get(i)));
+                        for (Integer integer : boardNo) {
+                            boardNoMap.put(integer.toString(), SQL.viewBoardContent(integer));
                         }
                         mainFrame.titlesPanel.setTitlesMap(boardNoMap);
                     }

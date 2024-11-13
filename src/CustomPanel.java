@@ -1,4 +1,5 @@
-package PACKAGE_NAME;
+import javax.swing.*;
 
-public class CustomPanel {
+abstract class CustomPanel extends JPanel {
+    public abstract void clickedEvent(String name);
 }

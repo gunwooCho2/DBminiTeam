@@ -53,7 +53,8 @@ public class SQL {
                     IF :NEW.boardNo IS NULL THEN
                         SELECT board_seq.NEXTVAL INTO :NEW.boardNo FROM dual;
                     END IF;
-                END
+                END;
+                /
                 """);
     }
 

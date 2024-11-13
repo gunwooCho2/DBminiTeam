@@ -31,9 +31,7 @@ public class SQL {
                     writer VARCHAR2(50) NOT NULL,
                     empno NUMBER,
                     regdate DATE DEFAULT SYSDATE,
-                    CONSTRAINT fk_emp FOREIGN KEY (empno)
-                        REFERENCES emp(empno)
-                        ON DELETE CASCADE
+                    CONSTRAINT fk_emp FOREIGN KEY (empno) REFERENCES emp(empno) ON DELETE CASCADE
                 )
                 """);
         homeworkTwo.add("""

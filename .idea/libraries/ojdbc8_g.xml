@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="ojdbc8_g">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/ojdbc8_g.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/Ic/DBMini/src/ojdbc8_g.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

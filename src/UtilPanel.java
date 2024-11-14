@@ -57,6 +57,8 @@ public class UtilPanel extends CustomPanel {
                     add(delete);
                     add(rename);
                     remove(signUp);
+                    repaint();
+                    revalidate();
                 }
                 else System.out.println("Error Can't find userName");
                 break;
@@ -70,6 +72,8 @@ public class UtilPanel extends CustomPanel {
                 add(logIn);
                 add(signUp);
                 mainFrame.titlesPanel.setTitlesMap(SQL.homeworkOne);
+                repaint();
+                revalidate();
                 break;
             case "Delete":
                 mainFrame.dao.deleteByEmpName(userName);
@@ -95,11 +99,18 @@ public class UtilPanel extends CustomPanel {
                 else mainFrame.viewPanel.inputBoard();
                 break;
             case "Rename":
-                System.out.println(userName);
-                String sql = "UPDATE EMP SET ENAME = '" + username.getText() + "' WHERE EMPNO = " + empno;
-                mainFrame.dao.executeUpdateSql(sql);
-                System.out.println("Renamed");
+                int empno2 = mainFrame.dao.checkName(username.getText());
+                if (empno2 == 0) {
+                    String sql = "UPDATE EMP SET ENAME = '" + username.getText() + "' WHERE EMPNO = " + empno;
+                    mainFrame.dao.executeUpdateSql(sql);
+                    sql = "UPDATE BOARD SET WRITER = '" + username.getText() + "' WHERE EMPNO = " + empno;
+                    mainFrame.dao.executeUpdateSql(sql);
+                    username.setText("");
+                    System.out.println("Renamed");
+                }
+                else System.out.println("Username already exists in the database.");
             case "SignUp":
+                new SignUpPage();
         }
     }
 }
